@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOSHUAPRO5 - Redes Sociales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --dark: #000000;
+            --light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* Fondo igual al portafolio */
+            background: linear-gradient(to bottom, var(--dark), #333333, #555555, #777777, #999999, var(--light));
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .linktree-container {
+            width: 100%;
+            max-width: 450px; /* Ancho ideal para móviles */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Efecto cristal */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- SECCIÓN PERFIL (Centrado mejorado) --- */
+        .profile-section {
+            display: flex;
+            flex-direction: column; /* Apila imagen y texto verticalmente */
+            align-items: center;    /* Centra horizontalmente todo el contenido */
+            text-align: center;
+            width: 100%;
+            margin-bottom: 35px;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            /* Centrado del texto de respaldo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
+            letter-spacing: 1px;
+        }
+
+        .bio {
+            color: #e0e0e0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* --- BOTONES --- */
+        .links-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centrar contenido dentro del botón */
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            user-select: none; /* Evita que se seleccione el texto al hacer clic rápido */
+        }
+
+        .link-card:active {
+            transform: scale(0.98);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            background: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .icon-left {
+            position: absolute;
+            left: 25px;
+            font-size: 1.5rem;
+        }
+
+        /* Colores hover */
+        .link-card:hover .fa-youtube { color: #FF0000; }
+        .link-card:hover .fa-discord { color: #5865F2; }
+        .link-card:hover .fa-x-twitter { color: #000; }
+        .link-card:hover .fa-github { color: #333; }
+        .link-card:hover .fa-envelope { color: var(--primary); }
+
+        /* Estilo especial botón Discord */
+        #discord-user-btn {
+            background: linear-gradient(to right, #5865F2, #4752C4);
+            color: white;
+            border: none;
+        }
+        #discord-user-btn .icon-left {
+            color: white !important;
+        }
+
+        /* --- BOTÓN VOLVER (Visible) --- */
+        .footer-container {
+            margin-top: 35px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: rgba(0, 0, 0, 0.6); /* Fondo oscuro visible */
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .footer-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        /* Notificación flotante (Toast) */
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            background: #333;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+            font-weight: 600;
+        }
+        
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="linktree-container">
+        <!-- Sección de Perfil -->
+        <div class="profile-section">
+            <img src="https://files.catbox.moe/t7651d.png" alt="JOSHUAPRO5" class="profile-img" id="profile-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <!-- Fallback por si falla la imagen -->
+            <div class="profile-img" style="display:none;">JP5</div>
+            
+            <h1>JOSHUAPRO5</h1>
+            <p class="bio">Todas mis redes y contactos</p>
+        </div>
+
+        <!-- Lista de Botones -->
+        <div class="links-wrapper">
+            
+            <!-- YouTube -->
+            <a href="https://youtube.com/@elgamer_joshuapro5_yt?si=zpHyLQSgM6g7HtEM" target="_blank" class="link-card">
+                <i class="fab fa-youtube icon-left"></i>
+                <span>YouTube</span>
+            </a>
+
+            <!-- Discord Server -->
+            <a href="https://discord.gg/SrvuSj6XRd" target="_blank" class="link-card">
+                <i class="fab fa-discord icon-left"></i>
+                <span>Servidor de Discord</span>
+            </a>
+
+            <!-- Discord Add Friend (Copia al portapapeles) -->
+            <div class="link-card" id="discord-user-btn" onclick="copyDiscordUser()">
+                <i class="fas fa-user-plus icon-left"></i>
+                <span id="discord-text">Añademe en Discord</span>
+            </div>
+
+            <!-- X / Twitter -->
+            <a href="https://x.com/JoshuaG90612901" target="_blank" class="link-card">
+                <i class="fab fa-x-twitter icon-left"></i>
+                <span>X (Twitter)</span>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/joshuaPRO5" target="_blank" class="link-card">
+                <i class="fab fa-github icon-left"></i>
+                <span>GitHub</span>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:jg3136019@gmail.com" class="link-card">
+                <i class="fas fa-envelope icon-left"></i>
+                <span>Correo Electrónico</span>
+            </a>
+
+        </div>
+
+        <!-- Botón Volver Visible -->
+        <div class="footer-container">
+            <a href="JOSHUAPRO5.html" class="footer-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </div>
+    </div>
+
+    <!-- Mensaje flotante -->
+    <div id="copy-toast" class="copy-notification">
+        <i class="fas fa-check-circle"></i> ¡Usuario copiado!
+    </div>
+
+    <script>
+        function copyDiscordUser() {
+            // El usuario a copiar
+            const username = "joshuapro3.0.";
+            
+            // Referencias a elementos
+            const btnText = document.getElementById('discord-text');
+            const toast = document.getElementById('copy-toast');
+
+            // Copiar al portapapeles
+            navigator.clipboard.writeText(username).then(() => {
+                
+                // 1. Feedback visual en el botón
+                const originalText = "Añademe en Discord";
+                btnText.innerText = "¡Copiado! " + username;
+                
+                // 2. Mostrar la notificación flotante abajo
+                toast.classList.add('show');
+
+                // 3. Restaurar todo después de 3 segundos
+                setTimeout(() => {
+                    btnText.innerText = originalText;
+                    toast.classList.remove('show');
+                }, 3000);
+
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                alert("No se pudo copiar automáticamente. Mi usuario es: " + username);
+            });
+        }
+    </script>
+</body>    
+</html>
